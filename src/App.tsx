@@ -1,12 +1,15 @@
 import { style$, globalStyle$ } from '@vanilla-extract/css';
 import { vars } from './vars';
+import { redTextFromFile } from './styles.css';
+
+const redTextFromMacro = style$({ color: 'red' });
 
 globalStyle$('body, body *', {
   all: 'unset',
   boxSizing: 'border-box',
 });
 
-const tablet= 'screen and (min-width: 768px)';
+const tablet = 'screen and (min-width: 768px)';
 const desktop = 'screen and (min-width: 1024px)';
 
 export const App = () => (
@@ -20,18 +23,19 @@ export const App = () => (
       padding: vars.space['6x'],
     })}
   >
-    <div className={style$({
-      background: vars.color['gray-800'],
-      borderRadius: vars.borderRadius['4x'],
-      padding: vars.space['7x'],
-      '@media': {
-        [desktop]: {
-          borderRadius: vars.borderRadius['5x'],
-          padding: vars.space['8x'],
-        }
-      }
-
-    })}>
+    <div
+      className={style$({
+        background: vars.color['gray-800'],
+        borderRadius: vars.borderRadius['4x'],
+        padding: vars.space['7x'],
+        '@media': {
+          [desktop]: {
+            borderRadius: vars.borderRadius['5x'],
+            padding: vars.space['8x'],
+          },
+        },
+      })}
+    >
       <div
         className={style$({
           display: 'flex',
@@ -41,8 +45,8 @@ export const App = () => (
           '@media': {
             [desktop]: {
               gap: vars.space['6x'],
-            }
-          }
+            },
+          },
         })}
       >
         <h1
@@ -54,9 +58,9 @@ export const App = () => (
             '@media': {
               [desktop]: {
                 fontSize: vars.fontSize['5x'],
-                lineHeight: vars.lineHeight['5x'],              
-              }
-            }
+                lineHeight: vars.lineHeight['5x'],
+              },
+            },
           })}
         >
           <span role="img" aria-label="Waving hand">
@@ -69,6 +73,12 @@ export const App = () => (
             🍨
           </span>
         </h1>
+        <h2 className={redTextFromFile}>
+          This Text Should be Red - From .css.ts
+        </h2>
+        <h2 className={redTextFromMacro}>
+          This Text Should be Red - From Macro
+        </h2>
         <h2
           className={style$({
             fontFamily: 'body',
@@ -79,13 +89,13 @@ export const App = () => (
             '@media': {
               [tablet]: {
                 fontSize: vars.fontSize['3x'],
-                lineHeight: vars.lineHeight['3x'],              
+                lineHeight: vars.lineHeight['3x'],
               },
               [desktop]: {
                 fontSize: vars.fontSize['4x'],
-                lineHeight: vars.lineHeight['4x'],              
-              }
-            }
+                lineHeight: vars.lineHeight['4x'],
+              },
+            },
           })}
         >
           Hello from vanilla-extract and Sprinkles
